@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_main_event"
+    app:startDestination="@id/eventsFragment">
+
+    <fragment
+        android:id="@+id/eventsFragment"
+        android:name="com.example.marvelapplication.ui.events.fragments.EventsFragment"
+        android:label="EventsFragment">
+        <action
+            android:id="@+id/action_eventsFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.marvelapplication.ui.details.fragment.DetailsFragment"
+        android:label="DetailsFragment">
+        <argument
+            android:name="data"
+            app:argType="com.example.marvelapplication.model.GenericAnswer" />
+    </fragment>
+</navigation>
