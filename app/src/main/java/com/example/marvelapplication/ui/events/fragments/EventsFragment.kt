@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.marvelapplication.databinding.FragmentEventsBinding
 import com.example.marvelapplication.model.GenericAnswer
 import com.example.marvelapplication.ui.BasicFragment
 import com.example.marvelapplication.ui.events.viewmodel.EventsViewModel
+import com.example.marvelapplication.utils.SharedPrefWords
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EventsFragment : BasicFragment<FragmentEventsBinding>() {
+class EventsFragment : BasicFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,14 +21,8 @@ class EventsFragment : BasicFragment<FragmentEventsBinding>() {
         savedInstanceState: Bundle?,
     ): View {
         viewModel = viewModels<EventsViewModel>().value
-        // Inflate the layout for this fragment
-        binding = FragmentEventsBinding.inflate(layoutInflater, container, false)
-        preferenceString = EVENTS
+        preferenceString = SharedPrefWords.EVENTS.key
         return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    companion object {
-        val EVENTS = "events"
     }
 
     override fun goToDetails(item: GenericAnswer) {

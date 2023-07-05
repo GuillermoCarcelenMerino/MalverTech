@@ -5,11 +5,11 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadParams.Refresh
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.marvelapplication.model.Thumbnail
-import com.example.marvelapplication.model.characters.CharactersException
+import com.example.marvelapplication.utils.CharactersException
 import com.example.marvelapplication.model.characters.MarvelCharacter
 import com.example.marvelapplication.model.characters.MarvelCharacterData
-import com.example.marvelapplication.model.repository.CharactersRepository
-import com.example.marvelapplication.model.repository.network.ApiResponse
+import com.example.marvelapplication.repository.CharactersRepository
+import com.example.marvelapplication.repository.network.ApiResponse
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody

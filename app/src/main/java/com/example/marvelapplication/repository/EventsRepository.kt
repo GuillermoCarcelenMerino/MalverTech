@@ -1,8 +1,8 @@
-package com.example.marvelapplication.model.repository
+package com.example.marvelapplication.repository
 
-import com.example.marvelapplication.model.events.MarvelEvent
-import com.example.marvelapplication.model.repository.database.EventsDao
-import com.example.marvelapplication.model.repository.network.MarvelApi
+import com.example.marvelapplication.repository.database.EventsDao
+import com.example.marvelapplication.repository.entities.EventEntity
+import com.example.marvelapplication.repository.network.MarvelApi
 import javax.inject.Inject
 
 class EventsRepository @Inject constructor(
@@ -20,5 +20,5 @@ class EventsRepository @Inject constructor(
     suspend fun getEventsInRangeDB(start: Int, end: Int) =
         dao.getEventsInRange(start, end)
 
-    suspend fun insertAll(events: List<MarvelEvent>) = dao.insertAll(events)
+    suspend fun insertAll(events: List<EventEntity>) = dao.insertAll(events)
 }

@@ -1,12 +1,17 @@
-package com.example.marvelapplication.model.events
+package com.example.marvelapplication.repository.entities
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.marvelapplication.model.GenericAnswer
 import com.example.marvelapplication.model.Thumbnail
 
-data class MarvelEvent(
+@Entity("characters")
+data class CharacterEntity(
+
+    @PrimaryKey(autoGenerate = true)
     val id: Int?,
 
-    val title: String?,
+    val name: String?,
 
     val thumbnail: Thumbnail?,
 

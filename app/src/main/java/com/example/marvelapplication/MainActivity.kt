@@ -11,14 +11,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.example.marvelapplication.databinding.ActivityMain2Binding
-import com.example.marvelapplication.databinding.CharactersFragment2Binding
+import com.example.marvelapplication.databinding.ActivityMainBinding
+import com.example.marvelapplication.databinding.ContainerFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMain2Binding
+    private lateinit var binding: ActivityMainBinding
 
     private lateinit var adapter: Adapter
     private lateinit var viewPager: ViewPager2
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val inflater = LayoutInflater.from(this)
-        binding = ActivityMain2Binding.inflate(inflater)
+        binding = ActivityMainBinding.inflate(inflater)
 
         viewPager = binding.viewPager2
         adapter = Adapter(supportFragmentManager, lifecycle)
@@ -99,7 +99,7 @@ class NavFragment(val graph: Int) : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
-        val binding = CharactersFragment2Binding.inflate(layoutInflater, container, false)
+        val binding = ContainerFragmentBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 

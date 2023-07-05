@@ -1,8 +1,8 @@
-package com.example.marvelapplication.model.repository
+package com.example.marvelapplication.repository
 
-import com.example.marvelapplication.model.comics.MarvelComic
-import com.example.marvelapplication.model.repository.database.ComicsDao
-import com.example.marvelapplication.model.repository.network.MarvelApi
+import com.example.marvelapplication.repository.database.ComicsDao
+import com.example.marvelapplication.repository.entities.ComicEntity
+import com.example.marvelapplication.repository.network.MarvelApi
 import javax.inject.Inject
 
 class ComicsRepository @Inject constructor(
@@ -20,5 +20,5 @@ class ComicsRepository @Inject constructor(
     suspend fun getComicsDB(start: Int, end: Int) =
         dao.getComicsInRange(start, end)
 
-    suspend fun insertAll(comics: List<MarvelComic>) = dao.insertAll(comics)
+    suspend fun insertAll(comics: List<ComicEntity>) = dao.insertAll(comics)
 }

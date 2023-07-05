@@ -5,35 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
-import androidx.paging.LoadState
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
-import com.example.marvelapplication.R
-import com.example.marvelapplication.databinding.CharactersFragmentBinding
-import com.example.marvelapplication.databinding.FragmentComicsBinding
-import com.example.marvelapplication.databinding.FragmentEventsBinding
-import com.example.marvelapplication.ui.adapter.CharactersAdapter
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.marvelapplication.databinding.FragmentBasicBinding
+import com.example.marvelapplication.ui.recycler.generateRecycler
 import com.example.marvelapplication.utils.Delegado
 import com.example.marvelapplication.utils.dateToInt
 import com.example.marvelapplication.utils.getCurrentDate
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-abstract class BasicFragment<T : ViewBinding> : Fragment(), Delegado {
+abstract class BasicFragment : Fragment(), Delegado {
 
-    protected lateinit var viewModel: ViewModel
-
-    @Inject
-    lateinit var adapterCharacter: CharactersAdapter
-    private lateinit var recycler: RecyclerView
-
-    protected lateinit var binding: T
+    protected lateinit var viewModel: BasicViewModel<*>
+    private lateinit var binding: FragmentBasicBinding
     private var chargeFromDB = false
     protected var preferenceString = ""
 
@@ -57,45 +43,23 @@ abstract class BasicFragment<T : ViewBinding> : Fragment(), Delegado {
         if (!chargeFromDB) {
             sharedPreferences.edit().putInt(preferenceString, currentTime).apply()
         }
-        binding.apply {
+
+        binding = FragmentBasicBinding.inflate(layoutInflater, container, false)
+        binding.basicFragment.setContent {
             setViews()
         }
-        adapterCharacter.delegate = this
+
         return binding.root
     }
 
+    @Composable
     private fun setViews() {
-        when (binding) {
-            is CharactersFragmentBinding ->
-                recycler =
-                    binding.root.findViewById(R.id.characterRecycler)
-            is FragmentComicsBinding ->
-                recycler =
-                    binding.root.findViewById(R.id.comicsRecycler)
-            is FragmentEventsBinding ->
-                recycler =
-                    binding.root.findViewById(R.id.eventsRecycler)
+        val data = remember {
+            viewModel.createPager(chargeFromDB)
         }
-
-        recycler.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = adapterCharacter
-        }
-
-        lifecycleScope.launch {
-            (viewModel as BasicViewModel<*>).createPager(chargeFromDB).collectLatest { pagingData ->
-                adapterCharacter.submitData(pagingData)
-            }
-        }
-
-        adapterCharacter.addLoadStateListener { state ->
-            val error = state.refresh
-            if (error is LoadState.Error) {
-                Toast.makeText(
-                    requireContext(),
-                    "error en la petición",
-                    Toast.LENGTH_LONG,
-                ).show()
+        binding.basicFragment.setContent {
+            Surface {
+                generateRecycler(data.collectAsLazyPagingItems(), this)
             }
         }
     }

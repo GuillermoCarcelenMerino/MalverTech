@@ -6,8 +6,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.marvelapplication.model.Thumbnail
 import com.example.marvelapplication.model.characters.MarvelCharacter
 import com.example.marvelapplication.model.characters.MarvelCharacterData
-import com.example.marvelapplication.model.repository.CharactersRepository
-import com.example.marvelapplication.model.repository.network.ApiResponse
+import com.example.marvelapplication.repository.CharactersRepository
+import com.example.marvelapplication.repository.network.ApiResponse
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.instanceOf

@@ -1,9 +1,14 @@
-package com.example.marvelapplication.model.events
+package com.example.marvelapplication.repository.entities
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.marvelapplication.model.GenericAnswer
 import com.example.marvelapplication.model.Thumbnail
 
-data class MarvelEvent(
+@Entity("comics")
+data class ComicEntity(
+
+    @PrimaryKey(autoGenerate = true)
     val id: Int?,
 
     val title: String?,
@@ -15,5 +20,4 @@ data class MarvelEvent(
     val end: String? = null,
 
     val start: String? = null,
-
 ) : GenericAnswer()

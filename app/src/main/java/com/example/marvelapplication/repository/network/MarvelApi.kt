@@ -1,4 +1,4 @@
-package com.example.marvelapplication.model.repository.network
+package com.example.marvelapplication.repository.network
 
 import retrofit2.Response
 import retrofit2.http.GET

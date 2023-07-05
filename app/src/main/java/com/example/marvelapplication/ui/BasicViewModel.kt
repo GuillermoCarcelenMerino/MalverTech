@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.example.marvelapplication.model.repository.CharactersRepository
-import com.example.marvelapplication.model.repository.ComicsRepository
-import com.example.marvelapplication.model.repository.EventsRepository
+import com.example.marvelapplication.repository.CharactersRepository
+import com.example.marvelapplication.repository.ComicsRepository
+import com.example.marvelapplication.repository.EventsRepository
 import com.example.marvelapplication.paging.BasicPaging
 import com.example.marvelapplication.paging.CharactersPaging
 import com.example.marvelapplication.paging.ComicsPaging

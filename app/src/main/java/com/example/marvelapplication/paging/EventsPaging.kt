@@ -1,6 +1,6 @@
 package com.example.marvelapplication.paging
 
-import com.example.marvelapplication.model.repository.EventsRepository
+import com.example.marvelapplication.repository.EventsRepository
 
 class EventsPaging(
     private val repository: EventsRepository,

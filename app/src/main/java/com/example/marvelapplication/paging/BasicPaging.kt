@@ -2,17 +2,12 @@ package com.example.marvelapplication.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.marvelapplication.model.characters.CharactersException
 import com.example.marvelapplication.model.characters.MarvelCharacter
-import com.example.marvelapplication.model.comics.ComicsException
-import com.example.marvelapplication.model.events.MarvelExceptionEvent
-import com.example.marvelapplication.model.repository.CharactersRepository
-import com.example.marvelapplication.model.repository.ComicsRepository
-import com.example.marvelapplication.model.repository.EventsRepository
-import com.example.marvelapplication.model.repository.network.ApiResponse
-import com.example.marvelapplication.utils.MarvelRequestGenerator
-import com.example.marvelapplication.utils.toMarvelCharacter
-import com.example.marvelapplication.utils.toMarvelCharacterEvent
+import com.example.marvelapplication.repository.CharactersRepository
+import com.example.marvelapplication.repository.ComicsRepository
+import com.example.marvelapplication.repository.EventsRepository
+import com.example.marvelapplication.repository.network.ApiResponse
+import com.example.marvelapplication.utils.*
 import retrofit2.HttpException
 
 open class BasicPaging<T>(private val repository: T, open val fromDB: Boolean) :
@@ -105,14 +100,14 @@ open class BasicPaging<T>(private val repository: T, open val fromDB: Boolean) :
             is ApiResponse.EventResponseOk -> {
                 mappedDatta = body.data.results?.toMarvelCharacterEvent() ?: mutableListOf()
                 if (body.data.results?.isNotEmpty() == true) {
-                    (repository as EventsRepository).insertAll(body.data.results!!.map { it.copy(id = null) })
+                    (repository as EventsRepository).insertAll(body.data.results!!.map { it.toEntity() })
                 }
             }
 
             is ApiResponse.ComicResponseOk -> {
                 mappedDatta = body.data.results?.toMarvelCharacter() ?: mutableListOf()
                 if (body.data.results?.isNotEmpty() == true) {
-                    (repository as ComicsRepository).insertAll(body.data.results!!.map { it.copy(id = null) })
+                    (repository as ComicsRepository).insertAll(body.data.results!!.map { it.toEntity() })
                 }
             }
 
@@ -121,9 +116,7 @@ open class BasicPaging<T>(private val repository: T, open val fromDB: Boolean) :
                 if (body.data.results?.isNotEmpty() == true) {
                     (repository as CharactersRepository).insertAll(
                         body.data.results!!.map {
-                            it.copy(
-                                id = null,
-                            )
+                            it.toEntity()
                         },
                     )
                 }
@@ -141,10 +134,11 @@ open class BasicPaging<T>(private val repository: T, open val fromDB: Boolean) :
     private suspend fun loadFromDB(offset: Int): List<MarvelCharacter> {
         return when (repository) {
             is EventsRepository -> repository.getEventsInRangeDB(offset, offset + offsetCons)
-                .toMarvelCharacterEvent()
+                .fromEntityToCharacterEvent()
             is ComicsRepository -> repository.getComicsDB(offset, offset + offsetCons)
-                .toMarvelCharacter()
+                .fromEntityToCharacter()
             is CharactersRepository -> repository.getCharactersDB(offset, offset + offsetCons)
+                .fromEntity()
             else -> emptyList()
         }
     }

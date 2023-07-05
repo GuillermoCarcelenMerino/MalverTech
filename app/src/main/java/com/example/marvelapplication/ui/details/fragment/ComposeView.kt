@@ -78,7 +78,7 @@ fun addView(item: GenericAnswer, type: Int) {
                                 .fillMaxWidth(),
                         )
                         Text(
-                            text = getStart(type),
+                            text = getStart(),
                             fontSize = 14.sp,
                             modifier = Modifier.padding(top = 10.dp),
                             style = TextStyle(fontStyle = FontStyle.Normal),
@@ -99,7 +99,7 @@ fun addView(item: GenericAnswer, type: Int) {
                                 .fillMaxWidth(),
                         )
                         Text(
-                            text = getEnd(type),
+                            text = getEnd(),
                             fontSize = 14.sp,
                             modifier = Modifier.padding(top = 10.dp),
                             style = TextStyle(fontStyle = FontStyle.Normal),
@@ -120,14 +120,14 @@ fun getImage(type: Int) = when (type) {
 
 fun getNametype(type: Int): String = when (type) {
     0 -> marvelCharacter?.name ?: "Empty Name"
-    1 -> marvelComic?.name ?: "Empty Name"
-    2 -> marvelEvent?.name ?: "Empty Name"
+    1 -> marvelComic?.title ?: "Empty Name"
+    2 -> marvelEvent?.title ?: "Empty Name"
     else -> "Name not found"
 }
 
-fun getStart(type: Int): String = marvelEvent?.start ?: "No start assigned"
+fun getStart(): String = marvelEvent?.start ?: "No start assigned"
 
-fun getEnd(type: Int): String = marvelEvent?.end ?: "No end assigned"
+fun getEnd(): String = marvelEvent?.end ?: "No end assigned"
 
 fun getDescription(type: Int): String = when (type) {
     0 -> marvelCharacter?.description ?: "No description attached"

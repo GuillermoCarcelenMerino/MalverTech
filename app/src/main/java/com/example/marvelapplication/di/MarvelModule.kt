@@ -2,11 +2,11 @@ package com.example.marvelapplication.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.marvelapplication.model.repository.database.AppDatabase
-import com.example.marvelapplication.model.repository.database.CharactersDao
-import com.example.marvelapplication.model.repository.database.ComicsDao
-import com.example.marvelapplication.model.repository.database.EventsDao
-import com.example.marvelapplication.model.repository.network.MarvelApi
+import com.example.marvelapplication.repository.database.AppDatabase
+import com.example.marvelapplication.repository.database.CharactersDao
+import com.example.marvelapplication.repository.database.ComicsDao
+import com.example.marvelapplication.repository.database.EventsDao
+import com.example.marvelapplication.repository.network.MarvelApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

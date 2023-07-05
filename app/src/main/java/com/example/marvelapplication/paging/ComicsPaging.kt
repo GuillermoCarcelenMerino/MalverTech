@@ -1,6 +1,6 @@
 package com.example.marvelapplication.paging
 
-import com.example.marvelapplication.model.repository.ComicsRepository
+import com.example.marvelapplication.repository.ComicsRepository
 
 class ComicsPaging(
     private val repository: ComicsRepository,
